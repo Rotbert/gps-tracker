@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,7 +18,7 @@ public class PositionService {
     private final PositionRepository positionRepository;
 
     @Autowired
-    public PositionService(PositionRepository positionRepository){
+    public PositionService(PositionRepository positionRepository) {
         this.positionRepository = positionRepository;
     }
 
@@ -38,23 +39,40 @@ public class PositionService {
 
     public List<PositionDTO> getAllPositions() {
 
-        List<Position> positionList = (List<Position>) positionRepository.findAll();
+        List<Position> positionList = positionRepository.findAll();
         List<PositionDTO> positionDTOs = new ArrayList<>();
 
         for (Position position : positionList) {
-
-            PositionDTO positionDTO = new PositionDTO();
-
-            positionDTO.setTerminalId(position.getTerminalId());
-            positionDTO.setLatitude(position.getLatitude());
-            positionDTO.setLongitude(position.getLongitude());
-            positionDTO.setId(position.getId());
-            positionDTO.setCreationDate(position.getCreationDate());
-
-            positionDTOs.add(positionDTO);
+            createPositionDTOs(positionDTOs, position);
         }
 
         return positionDTOs;
+    }
+
+    public List<PositionDTO> getAllPositions(Date startDate, Date endDate) {
+
+        List<Position> positionList = positionRepository.findAll();
+        List<PositionDTO> positionDTOs = new ArrayList<>();
+
+        for (Position position : positionList) {
+            if (position.getCreationDate().after(startDate) && position.getCreationDate().before(endDate)) {
+                createPositionDTOs(positionDTOs, position);
+            }
+        }
+
+        return positionDTOs;
+    }
+
+    private void createPositionDTOs(List<PositionDTO> positionDTOs, Position position) {
+        PositionDTO positionDTO = new PositionDTO();
+
+        positionDTO.setTerminalId(position.getTerminalId());
+        positionDTO.setLatitude(position.getLatitude());
+        positionDTO.setLongitude(position.getLongitude());
+        positionDTO.setId(position.getId());
+        positionDTO.setCreationDate(position.getCreationDate());
+
+        positionDTOs.add(positionDTO);
     }
 
     public PositionDTO updatePosition(PositionDTO positionDTO) {
