@@ -77,15 +77,18 @@ public class PositionService {
 
     public PositionDTO updatePosition(PositionDTO positionDTO) {
 
-        Position oldPosition = positionRepository.findById(positionDTO.getId()).get();
+        if (positionRepository.findById(positionDTO.getId()).isPresent()) {
+            Position oldPosition = positionRepository.findById(positionDTO.getId()).get();
 
-        oldPosition.setTerminalId(positionDTO.getTerminalId());
-        oldPosition.setLatitude(positionDTO.getLatitude());
-        oldPosition.setLongitude(positionDTO.getLongitude());
+            oldPosition.setTerminalId(positionDTO.getTerminalId());
+            oldPosition.setLatitude(positionDTO.getLatitude());
+            oldPosition.setLongitude(positionDTO.getLongitude());
 
-        positionRepository.save(oldPosition);
+            positionRepository.save(oldPosition);
 
-        return getPositionDTO(oldPosition);
+            return getPositionDTO(oldPosition);
+        }
+        return savePosition(positionDTO);
     }
 
     private PositionDTO getPositionDTO(Position position) {
@@ -100,11 +103,14 @@ public class PositionService {
         return positionDTO;
     }
 
-    public void deletePosition(Integer id) {
+    public String deletePosition(Integer id) {
 
-        Position position = positionRepository.findById(id).get();
+        if (positionRepository.findById(id).isPresent()) {
+            Position position = positionRepository.findById(id).get();
 
-        positionRepository.delete(position);
-
+            positionRepository.delete(position);
+            return "Deleted id " + id + ".";
+        }
+        return "Nothing to delete.";
     }
 }

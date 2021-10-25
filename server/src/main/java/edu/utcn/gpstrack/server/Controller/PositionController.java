@@ -41,7 +41,7 @@ public class PositionController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deletePosition(@PathVariable Integer id) {
-        positionService.deletePosition(id);
+    public String deletePosition(@PathVariable Integer id) {
+        return positionService.deletePosition(id);
     }
 }
