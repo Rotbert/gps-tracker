@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
 public class SendActivity extends AppCompatActivity implements View.OnClickListener {
     private Executor executor = Executors.newFixedThreadPool(1);
     private volatile Handler msgHandler;
-
+    private static final String macAddress = getMacAddress();
     private static final String STATIC_LOCATION = "{" +
             "\"terminalId\":\"%s\"," +
             "\"latitude\":\"%s\"," +
@@ -51,7 +51,7 @@ public class SendActivity extends AppCompatActivity implements View.OnClickListe
         msgHandler = new MsgHandler(this);
     }
 
-    private String getMacAddress() {
+    private static String getMacAddress() {
         try {
             List<NetworkInterface> networkInterfaceList = Collections.list(NetworkInterface.getNetworkInterfaces());
             String stringMac = "";
@@ -96,7 +96,7 @@ public class SendActivity extends AppCompatActivity implements View.OnClickListe
                 // use MAC addr or IMEI as terminal id
                 // read true position
                 // replace static coordinates with the ones from the true position
-                msg.arg1 = sendCoordinates(getMacAddress(), Double.toString(latitude), Double.toString(longitude)) ? 1 : 0;
+                msg.arg1 = sendCoordinates(macAddress, Double.toString(latitude), Double.toString(longitude)) ? 1 : 0;
                 msgHandler.sendMessage(msg);
             }
         });
