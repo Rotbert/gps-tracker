@@ -136,7 +136,7 @@ public class SendActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
             return false;
         } finally {
             if (con != null) {
