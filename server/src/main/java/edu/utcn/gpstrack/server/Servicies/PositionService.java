@@ -43,36 +43,23 @@ public class PositionService {
         List<PositionDTO> positionDTOs = new ArrayList<>();
 
         for (Position position : positionList) {
-            createPositionDTOs(positionDTOs, position);
+            positionDTOs.add(getPositionDTO(position));
         }
 
         return positionDTOs;
     }
 
-    public List<PositionDTO> getAllPositions(Date startDate, Date endDate) {
+    public List<PositionDTO> getPositionsBetween(Date startDate, Date endDate) {
 
-        List<Position> positionList = positionRepository.findAll();
+        List<Position> positionList =
+                positionRepository.getPositionsBetween(startDate,endDate);
         List<PositionDTO> positionDTOs = new ArrayList<>();
 
         for (Position position : positionList) {
-            if (position.getCreationDate().after(startDate) && position.getCreationDate().before(endDate)) {
-                createPositionDTOs(positionDTOs, position);
-            }
+            positionDTOs.add(getPositionDTO(position));
         }
 
         return positionDTOs;
-    }
-
-    private void createPositionDTOs(List<PositionDTO> positionDTOs, Position position) {
-        PositionDTO positionDTO = new PositionDTO();
-
-        positionDTO.setTerminalId(position.getTerminalId());
-        positionDTO.setLatitude(position.getLatitude());
-        positionDTO.setLongitude(position.getLongitude());
-        positionDTO.setId(position.getId());
-        positionDTO.setCreationDate(position.getCreationDate());
-
-        positionDTOs.add(positionDTO);
     }
 
     public PositionDTO updatePosition(PositionDTO positionDTO) {
@@ -104,7 +91,6 @@ public class PositionService {
     }
 
     public String deletePosition(Integer id) {
-
         if (positionRepository.findById(id).isPresent()) {
             Position position = positionRepository.findById(id).get();
 
