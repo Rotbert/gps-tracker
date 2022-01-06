@@ -49,10 +49,10 @@ public class PositionService {
         return positionDTOs;
     }
 
-    public List<PositionDTO> getPositionsBetween(Date startDate, Date endDate) {
+    public List<PositionDTO> getPositionsBetween(String terminalId, Date startDate, Date endDate) {
 
         List<Position> positionList =
-                positionRepository.getPositionsBetween(startDate,endDate);
+                positionRepository.getPositionsBetween(terminalId,startDate,endDate);
         List<PositionDTO> positionDTOs = new ArrayList<>();
 
         for (Position position : positionList) {

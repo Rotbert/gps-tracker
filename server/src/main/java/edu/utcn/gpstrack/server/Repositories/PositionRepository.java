@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface PositionRepository extends JpaRepository<Position, Integer> {
 
-    @Query(value = "SELECT * FROM position WHERE creation_date >= :startDateParam AND creation_date <= :endDateParam", nativeQuery = true)
-    List<Position> getPositionsBetween(@Param("startDateParam") Date startDateParam, @Param("endDateParam") Date endDateParam);
+    @Query(value = "SELECT * FROM position WHERE terminal_id = :terminalId AND creation_date >= :startDateParam AND creation_date <= :endDateParam", nativeQuery = true)
+    List<Position> getPositionsBetween(@Param("terminalId") String terminalId,@Param("startDateParam") Date startDateParam, @Param("endDateParam") Date endDateParam);
 
 }

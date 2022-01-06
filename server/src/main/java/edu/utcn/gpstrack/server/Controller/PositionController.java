@@ -30,9 +30,9 @@ public class PositionController {
         return positionService.getAllPositions();
     }
 
-    @GetMapping("/get-between/{startDate}/{endDate}")
-    public List<PositionDTO> getPositionsBetween(@PathVariable String startDate, @PathVariable String endDate) throws ParseException {
-        return positionService.getPositionsBetween(new SimpleDateFormat("yyyy-MM-dd").parse(startDate), new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
+    @GetMapping("/get-between/{terminalId}/{startDate}/{endDate}")
+    public List<PositionDTO> getPositionsBetween(@PathVariable String terminalId, @PathVariable String startDate, @PathVariable String endDate) throws ParseException {
+        return positionService.getPositionsBetween(terminalId, new SimpleDateFormat("yyyy-MM-dd").parse(startDate), new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
     }
 
     @PutMapping("/update")
