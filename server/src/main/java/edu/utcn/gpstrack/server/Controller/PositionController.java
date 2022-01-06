@@ -40,6 +40,7 @@ public class PositionController {
         return positionService.updatePosition(positionDTO);
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public String deletePosition(@PathVariable Integer id) {
         return positionService.deletePosition(id);
