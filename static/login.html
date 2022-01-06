@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Admin Application Sketch</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/login.js"></script>
+  </head>
+
+  <body>
+    <h1 align="center">Admin Login</h1>
+
+    <div id align="center">
+      <table align="center">
+        <tr>
+          <td><b>Admin Username</b></td>
+          <td>
+            <input type="text" id="username" size="35" class="regular_input" />
+          </td>
+        </tr>
+        <tr>
+          <td><b>Admin Password</b></td>
+          <td>
+            <input
+              type="password"
+              id="password"
+              size="35"
+              class="regular_input"
+              onkeydown="if (event.keyCode == 13) goToPage('index.html')"
+            />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id align="center">
+      <tr>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            type="button"
+            id="login_button"
+            size="35"
+            value="Login"
+            onclick="goToPage('index.html')"
+          />
+        </td>
+      </tr>
+    </div>
+  </body>
+</html>
