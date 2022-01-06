@@ -30,6 +30,7 @@ public class PositionController {
         return positionService.getAllPositions();
     }
 
+    @CrossOrigin
     @GetMapping("/get-between/{terminalId}/{startDate}/{endDate}")
     public List<PositionDTO> getPositionsBetween(@PathVariable String terminalId, @PathVariable String startDate, @PathVariable String endDate) throws ParseException {
         return positionService.getPositionsBetween(terminalId, new SimpleDateFormat("yyyy-MM-dd").parse(startDate), new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
@@ -40,7 +41,6 @@ public class PositionController {
         return positionService.updatePosition(positionDTO);
     }
 
-    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public String deletePosition(@PathVariable Integer id) {
         return positionService.deletePosition(id);
