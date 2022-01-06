@@ -44,7 +44,7 @@ class Criteria {
 
 function getPositionsSuccessHandler(respData) {
   $("#result").append("<br>" + JSON.stringify(respData));
-  localStorage.setItem('locations', JSON.stringify(respData))
+  localStorage.setItem('locations', JSON.stringify(respData));
 }
 
 function getPositionsErrorHandler(status) {

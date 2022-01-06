@@ -26,4 +26,5 @@ function addStaticMarker() {
       title: locations[i].terminalId + " " + locations[i].creationDate,
     });
   }
+  localStorage.setItem('locations', JSON.stringify({}));
 }
